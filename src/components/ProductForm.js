@@ -8,11 +8,22 @@ const ProductForm = () => {
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(createProduct({ name, description, price }));
-  };
 
+    const productdata = await dispatch(createProduct({ name, description, price }));
+
+    try {
+      if(productdata){
+        console.log("produk datanya", productdata)
+        console.log("token user produk", productdata.token)
+      }
+    } catch (error) {
+      console.log('create error', error);
+    }
+  };
+  
+  
   return (
     <div>
       <h2>Create Product</h2>

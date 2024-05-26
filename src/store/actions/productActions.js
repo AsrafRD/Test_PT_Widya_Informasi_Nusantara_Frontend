@@ -3,25 +3,40 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { fetchApi } from '../../services/api';
 
 export const fetchProducts = createAsyncThunk('product/fetchProducts', async () => {
-  return fetchApi('/products');
+  const token = localStorage.getItem('token');
+  return fetchApi('/products', token);
 });
 
 export const createProduct = createAsyncThunk('product/createProduct', async (productData) => {
-  return fetchApi('/products', {
+  const token = localStorage.getItem('token');
+  return await fetchApi('/products', {
     method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
     body: JSON.stringify(productData),
   });
 });
 
 export const updateProduct = createAsyncThunk('product/updateProduct', async ({ id, productData }) => {
-  return fetchApi(`/products/${id}`, {
+  const token = localStorage.getItem('token');
+  return await fetchApi(`/products/${id}`, {
     method: 'PUT',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
     body: JSON.stringify(productData),
   });
 });
 
 export const deleteProduct = createAsyncThunk('product/deleteProduct', async (id) => {
-  return fetchApi(`/products/${id}`, {
+  const token = localStorage.getItem('token');
+  return await fetchApi(`/products/${id}`, {
     method: 'DELETE',
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
   });
 });

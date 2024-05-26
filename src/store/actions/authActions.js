@@ -9,7 +9,10 @@ export const login = createAsyncThunk('auth/login', async (userCredentials) => {
     },
     body: JSON.stringify(userCredentials),
   });
-  const data = await response.json();
+  const data = await response;
+  
+  const token = await response.token;
+  console.log("tokennya ni", token)
   localStorage.setItem('token', data.token);
   return data.token;
 });
@@ -22,7 +25,8 @@ export const register = createAsyncThunk('auth/register', async (userData) => {
     },
     body: JSON.stringify(userData),
   });
-  const data = await response.json();
+  const data = await response;
+  
   return data;
 });
 
@@ -35,11 +39,12 @@ export const fetchProfile = createAsyncThunk('auth/fetchProfile', async () => {
       'Content-Type': 'application/json',
     },
   });
-  if (!response.ok) {
-    const error = await response.text();
+  if (!response) {
+    const error = await response;
     console.error('Fetch user profile failed:', error);
     throw new Error(error);
+  } else {
+    const data = await response;
+    return data;
   }
-  const data = await response.json();
-  return data;
 });
