@@ -48,3 +48,8 @@ export const fetchProfile = createAsyncThunk('auth/fetchProfile', async () => {
     return data;
   }
 });
+
+export const logout = createAsyncThunk('auth/logout', async () => {
+  localStorage.removeItem('token');
+  return null;
+});

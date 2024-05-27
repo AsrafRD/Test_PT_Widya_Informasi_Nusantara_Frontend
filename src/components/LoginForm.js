@@ -15,14 +15,14 @@ const LoginForm = () => {
 
     if (result.payload) {
       await dispatch(fetchProfile());
-      navigate('/profile');
+      navigate('/');
     }
   };
 
   return (
     <div>
-      <h2>Login</h2>
       <form onSubmit={handleSubmit}>
+      <h2>Login</h2>
         <input
           type="email"
           placeholder="Email"

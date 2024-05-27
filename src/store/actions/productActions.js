@@ -1,4 +1,3 @@
-// store/actions/productActions.js
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { fetchApi } from '../../services/api';
 
@@ -19,7 +18,7 @@ export const createProduct = createAsyncThunk('product/createProduct', async (pr
   });
 });
 
-export const updateProduct = createAsyncThunk('product/updateProduct', async ({ id, productData }) => {
+export const updateProduct = createAsyncThunk('product/updateProduct', async ({ id, updatedProduct  }) => {
   const token = localStorage.getItem('token');
   return await fetchApi(`/products/${id}`, {
     method: 'PUT',
@@ -27,7 +26,7 @@ export const updateProduct = createAsyncThunk('product/updateProduct', async ({ 
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(productData),
+    body: JSON.stringify(updatedProduct ),
   });
 });
 
@@ -40,3 +39,8 @@ export const deleteProduct = createAsyncThunk('product/deleteProduct', async (id
     }
   });
 });
+
+// export const deleteProduct = createAsyncThunk('products/deleteProduct', async (id) => {
+//   await fetchApi(`/products/${id}`, { method: 'DELETE' });
+//   return id;
+// });

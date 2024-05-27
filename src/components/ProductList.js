@@ -1,11 +1,14 @@
-// components/ProductList.js
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchProducts, deleteProduct } from '../store/actions/productActions';
+import { fetchProducts, deleteProduct, updateProduct } from '../store/actions/productActions';
 
 const ProductList = () => {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.product.products);
+  const [editingProduct, setEditingProduct] = useState(null);
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [price, setPrice] = useState('');
 
   useEffect(() => {
     dispatch(fetchProducts());
@@ -15,18 +18,69 @@ const ProductList = () => {
     dispatch(deleteProduct(id));
   };
 
+  const handleEdit = (product) => {
+    setEditingProduct(product);
+    setName(product.name);
+    setDescription(product.description);
+    setPrice(product.price);
+  };
+
+  const handleUpdate = (e) => {
+    e.preventDefault();
+    dispatch(updateProduct({ id: editingProduct._id, updatedProduct: { name, description, price } }));
+    setEditingProduct(null);
+    setName('');
+    setDescription('');
+    setPrice('');
+  };
+
+  const handleCancel = () => {
+    setEditingProduct(null);
+    setName('');
+    setDescription('');
+    setPrice('');
+  };
+
   return (
-    <div>
+    <div className="product-table-container">
       <h2>Product List</h2>
-      <ul>
-        {products.map((product) => (
-          <li key={product.id}>
-            {product.name} - {product.description} - ${product.price}
-            <button onClick={() => handleDelete(product.id)}>Delete</button>
-            {/* Tambahkan logika untuk mengupdate produk di sini */}
-          </li>
-        ))}
-      </ul>
+      <table className="product-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {products.map((product) => (
+            <tr key={product._id}>
+              <td>{product.name}</td>
+              <td>{product.description}</td>
+              <td>Rp. {product.price}</td>
+              <td>
+                <div className="product-buttons">
+                  <button onClick={() => handleEdit(product)}>Edit</button>
+                  <button onClick={() => handleDelete(product._id)}>Delete</button>
+                </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      {editingProduct && (
+        <div>
+          <h2>Edit Product</h2>
+          <form onSubmit={handleUpdate}>
+            <input type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
+            <input type="text" placeholder="Description" value={description} onChange={(e) => setDescription(e.target.value)} />
+            <input type="text" placeholder="Price" value={price} onChange={(e) => setPrice(e.target.value)} />
+            <button type="submit">Update</button>
+            <button type="button" onClick={handleCancel}>Cancel</button>
+          </form>
+        </div>
+      )}
     </div>
   );
 };

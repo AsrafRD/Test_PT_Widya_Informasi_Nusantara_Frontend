@@ -1,8 +1,8 @@
-// services/api.js
+// api.js
 export const apiUrl = 'http://localhost:5000';
 
 export const fetchApi = async (url, options = {}) => {
-  const token = localStorage.getItem('token'); 
+  const token = localStorage.getItem('token');
   const headers = {
     'Content-Type': 'application/json',
     ...options.headers,
@@ -14,12 +14,13 @@ export const fetchApi = async (url, options = {}) => {
     headers,
   });
 
-  if (!response) {
-    if (response.status === 401) {
-      // Jika status 401, redirect ke login
-      window.location.href = '/login';
-    }
-    throw new Error('Network response was not ok' + response.statusText);
+  if (response.status === 401) {
+    localStorage.removeItem('token');
+    window.location.href = '/login';
+  }
+
+  if (!response.ok) {
+    throw new Error('Network response was not ok ' + response.statusText);
   }
 
   return response.json();

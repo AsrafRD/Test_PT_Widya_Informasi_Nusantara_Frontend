@@ -1,35 +1,33 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Navigate } from 'react-router-dom';
-import { fetchProfile } from '../store/actions/authActions';
+import React from 'react';
+import useAuth from '../auth/userAuth';
 
 const Profile = () => {
-  const dispatch = useDispatch();
-  const user = useSelector((state) => state.auth.user);
-  const error = useSelector((state) => state.auth.error);
-  const isLoggedIn = user !== null;
+  const { user, authRedirect } = useAuth();
 
-  useEffect(() => {
-    if (!user) {
-      dispatch(fetchProfile());
-    }
-  }, [dispatch, user]);
-
-  if (error) {
-    console.error('Profile error:', error);
-    return <Navigate to="/login" />;
-  }
-
-  if (!isLoggedIn) {
-    return <Navigate to="/login" />;
+  if (!user) {
+    return null; // atau tampilkan pesan loading
   }
 
   return (
-    <div>
+    <div className="profile-container"> {/* Tambahkan kelas CSS profile-container */}
+      {authRedirect()}
       <h2>Profile</h2>
-      <p>Name: {user.name}</p>
-      <p>Email: {user.email}</p>
-      <p>Gender: {user.gender}</p>
+      <table className="profile-table"> {/* Gunakan tabel untuk menampilkan informasi */}
+        <tbody>
+          <tr>
+            <td>Name</td>
+            <td> : {user.name}</td>
+          </tr>
+          <tr>
+            <td>Email</td>
+            <td> : {user.email}</td>
+          </tr>
+          <tr>
+            <td>Gender</td>
+            <td> :  {user.gender}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   );
 };
