@@ -1,8 +1,8 @@
 // App.js
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { fetchProfile } from './store/actions/authActions';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Layout from './components/Layout';
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -12,8 +12,6 @@ import Profile from './pages/Profile';
 
 function App() {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.auth.user);
-
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
