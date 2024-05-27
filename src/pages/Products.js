@@ -7,7 +7,7 @@ const Products = () => {
   const { user, authRedirect } = useAuth();
 
   if (!user) {
-    return null; // atau tampilkan pesan loading
+    return null;
   }
   return (
     <div>

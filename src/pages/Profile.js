@@ -5,14 +5,14 @@ const Profile = () => {
   const { user, authRedirect } = useAuth();
 
   if (!user) {
-    return null; // atau tampilkan pesan loading
+    return null;
   }
 
   return (
-    <div className="profile-container"> {/* Tambahkan kelas CSS profile-container */}
+    <div className="profile-container">
       {authRedirect()}
       <h2>Profile</h2>
-      <table className="profile-table"> {/* Gunakan tabel untuk menampilkan informasi */}
+      <table className="profile-table">
         <tbody>
           <tr>
             <td>Name</td>

@@ -1,4 +1,3 @@
-// store/reducers/productReducer.js
 import { createSlice } from '@reduxjs/toolkit';
 import { fetchProducts, createProduct, updateProduct, deleteProduct } from '../actions/productActions';
 

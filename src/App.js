@@ -1,4 +1,3 @@
-// App.js
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { fetchProfile } from './store/actions/authActions';
@@ -20,7 +19,7 @@ function App() {
   }, [dispatch]);
 
   return (
-    <Router> {/* Make sure App is wrapped with Router */}
+    <Router>
       <Layout>
         <Routes>
           <Route path="/" element={<Home />} />

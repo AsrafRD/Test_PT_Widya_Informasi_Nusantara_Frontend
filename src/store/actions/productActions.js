@@ -40,7 +40,3 @@ export const deleteProduct = createAsyncThunk('product/deleteProduct', async (id
   });
 });
 
-// export const deleteProduct = createAsyncThunk('products/deleteProduct', async (id) => {
-//   await fetchApi(`/products/${id}`, { method: 'DELETE' });
-//   return id;
-// });
