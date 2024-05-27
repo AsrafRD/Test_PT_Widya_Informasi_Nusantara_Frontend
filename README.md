@@ -1,7 +1,6 @@
-# Wellcome in my repositori
+#  My App(auth) - Frontend
 
-## My App(auth) Frontend
-
+## Welcome to my repository
 Project ini dibangun hanya sebatas sebagai frontend menggunakan reactjs v18
 
 ### `Mulai Project`
