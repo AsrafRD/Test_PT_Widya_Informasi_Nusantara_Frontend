@@ -1,4 +1,4 @@
-export const apiUrl = 'http://localhost:5000';
+export const apiUrl = 'https://widya-wicara-backend.vercel.app/';
 
 export const fetchApi = async (url, options = {}) => {
   const token = localStorage.getItem('token');

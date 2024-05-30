@@ -12,7 +12,6 @@ const Products = () => {
   return (
     <div>
       {authRedirect()}
-      <h2>Products</h2>
       <ProductForm />
       <ProductList />
     </div>
